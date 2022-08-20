@@ -1,0 +1,11 @@
+.dataCardOuters{
+    padding: 20px;
+    margin:10px;
+    border: 1px solid black;
+    max-width: 40%;
+}
+
+.dataCardInner{
+    display: flex;
+    justify-content: space-between;
+}

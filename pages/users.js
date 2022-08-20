@@ -2,7 +2,7 @@ function Users({ data }) {
     console.log(data)
   return (
     <>
-      <h2 style={{marginTop:"60px"}}>Hello from users</h2>
+      <h2>Hello from users</h2>
     </>
   );
 }

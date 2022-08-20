@@ -1,5 +1,14 @@
+import DataCard from "./components/dataCard";
+import styles from "../styles/news.module.css"
 function News({ data }) {
-  return <p>Hello from news</p>;
+  return (
+      <div className={styles.newsContainer}>
+      <br></br>
+      {data.map((item) => (
+        <DataCard key={item.id} item={item}/>
+      ))}
+      </div>
+  )
 }
 
 export async function getStaticProps() {
