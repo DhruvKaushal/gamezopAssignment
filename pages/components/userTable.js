@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -16,16 +16,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserTable({ data }) {
+export default function UserTable({ data, topUser }) {
   const [rows, setRows] = useState(data);
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
+  const [topUsers, setTopUsers] = useState(Array(data.length).fill(false));
   const handleClickOpen = (user) => {
-    setSelectedUser(user)
+    setSelectedUser(user);
     setOpen(true);
   };
+  useEffect(()=>{
+    const topUsersFromLocal = JSON.parse(localStorage.getItem("topUsers"));
+    topUsersFromLocal ? setTopUsers(topUsersFromLocal) : setTopUsers(Array(data.length).fill(false))
+    localStorage.setItem('users', JSON.stringify(data));
+  }, [])
 
   const handleClose = (value) => {
     setOpen(false);
@@ -46,6 +52,13 @@ export default function UserTable({ data }) {
     requestSearch(searched);
   };
 
+  const setTopUser = (event, index) => {
+    event.stopPropagation();
+    let tempTopUsers = topUsers;
+    tempTopUsers[index] = !tempTopUsers[index];
+    setTopUsers(tempTopUsers);
+    localStorage.setItem("topUsers", JSON.stringify(topUsers));
+  };
   return (
     <>
       <Paper>
@@ -70,15 +83,26 @@ export default function UserTable({ data }) {
                 <TableCell>
                   <b>E-Mail</b>
                 </TableCell>
+                {!topUser && <TableCell>
+                  <b>Top User?</b>
+                </TableCell>}
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {rows.map((row, index) => (
                 <TableRow key={row.id} onClick={() => handleClickOpen(row)}>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.username}</TableCell>
                   <TableCell>{row.email}</TableCell>
+                  {!topUser &&<TableCell>
+                    <input
+                      type="checkbox"
+                      id="isTopUser"
+                      checked={topUsers[index]}
+                      onClick={(e) => setTopUser(e, index)}
+                    />
+                  </TableCell>}
                 </TableRow>
               ))}
             </TableBody>
@@ -86,11 +110,13 @@ export default function UserTable({ data }) {
         </TableContainer>
       </Paper>
       <br />
-      {open && <SpecificUserInfoDialog
-        open={open}
-        onClose={handleClose}
-        user={selectedUser}
-      />}
+      {open && (
+        <SpecificUserInfoDialog
+          open={open}
+          onClose={handleClose}
+          user={selectedUser}
+        />
+      )}
     </>
   );
 }
