@@ -14,7 +14,8 @@ export function SpecificUserInfoDialog(props) {
   const handleClose = () => {
     onClose();
   };
-
+  console.log(user)
+  const {street, suite, city, zipcode} = user.address;
   return (
     <Dialog onClose={handleClose} open={open}>
     <div style={{padding:'10px'}}>
@@ -24,7 +25,9 @@ export function SpecificUserInfoDialog(props) {
         <ListItemText primary={`Name: ${user.name}`} />
         <ListItemText primary={`User Name: ${user.username}`} />
         <ListItemText primary={`Email: ${user.email}`} />
-        <ListItemText primary={`Address: ${user.address.street} ${user.address.suite} ${user.address.city} - ${user.address.zipcode}`} />
+        <ListItemText primary={`Address: ${street} ${suite} ${city} - ${zipcode}`} />
+        <ListItemText primary={`Phone: ${user.phone}`} />
+        <ListItemText primary={`Website: ${user.website}`} />
       </List>
     </div>
       

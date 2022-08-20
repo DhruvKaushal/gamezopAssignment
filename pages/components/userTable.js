@@ -20,7 +20,7 @@ export default function UserTable({ data }) {
   const [rows, setRows] = useState(data);
   const [searched, setSearched] = useState("");
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
   const handleClickOpen = (user) => {
     setSelectedUser(user)
@@ -86,11 +86,11 @@ export default function UserTable({ data }) {
         </TableContainer>
       </Paper>
       <br />
-      <SpecificUserInfoDialog
+      {open && <SpecificUserInfoDialog
         open={open}
         onClose={handleClose}
         user={selectedUser}
-      />
+      />}
     </>
   );
 }
