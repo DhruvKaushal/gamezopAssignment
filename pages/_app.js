@@ -1,16 +1,16 @@
-import Head from 'next/head';
-import Header from './header';
+import Head from "next/head";
+import Header from "./components/header";
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-    <Head>
+      <Head>
         <title>GameZop Assignment</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    <Header></Header>
-      </>
-  )
+      <Header />
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;

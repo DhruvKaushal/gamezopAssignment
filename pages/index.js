@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <div className={styles.container}>
-      
+    <div>
+      <p  style={{marginTop:"60px"}}>Welcome to the gamezop Assignment</p>
     </div>
   );
 }
