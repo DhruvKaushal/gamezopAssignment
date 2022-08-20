@@ -1,9 +1,12 @@
+import UserTable from './components/userTable';
+
 function Users({ data }) {
-    console.log(data)
+  console.log(data);
   return (
-    <>
-      <h2>Hello from users</h2>
-    </>
+    <div style={{ marginTop: "60px" }}>
+      <h2 style={{ textAlign: "center" }}>Users List</h2>
+      <UserTable data={data}/>
+    </div>
   );
 }
 
