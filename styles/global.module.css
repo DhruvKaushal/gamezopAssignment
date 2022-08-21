@@ -1,3 +1,7 @@
 .componentWrapper{
     margin-top: 80px;
 }
+
+.greyedRow{
+    background-color: darkgray;
+}

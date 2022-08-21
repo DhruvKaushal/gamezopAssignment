@@ -11,6 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
 import Switch from "@mui/material/Switch";
 import { SpecificUserInfoDialog } from "./userInfoDialog";
+import styles from '../../styles/global.module.css';
 
 const useStyles = makeStyles({
   table: {
@@ -130,7 +131,7 @@ export default function UserTable({ data, topUser }) {
             </TableHead>
             <TableBody>
               {rows.map((row, index) => (
-                <TableRow key={row.id} onClick={() => handleClickOpen(row)}>
+                <TableRow className={blockedUsers[index] ? styles.greyedRow : styles.normalRow} key={row.id} onClick={() => handleClickOpen(row)}>
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.username}</TableCell>
