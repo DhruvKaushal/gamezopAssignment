@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
         <title>GameZop Assignment</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {/* Common header for all the components */}
       <Header />
       <Component {...pageProps}/>
     </>

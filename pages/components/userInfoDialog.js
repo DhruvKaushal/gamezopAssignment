@@ -10,11 +10,11 @@ export function SpecificUserInfoDialog(props) {
   const handleClose = () => {
     onClose();
   };
-  console.log(user)
   const {street, suite, city, zipcode} = user.address;
+
   return (
     <Dialog onClose={handleClose} open={open}>
-    <div style={{padding:'10px'}}>
+    <div style={{padding:'15px'}}>
     <DialogTitle style={{textAlign:'center'}}><b>User Info for {user.name}</b></DialogTitle>
       <List sx={{ pt: 2 }}>
         <ListItemText primary={`ID: ${user.id}`} />

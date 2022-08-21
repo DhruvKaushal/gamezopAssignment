@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import UserTable from "./components/userTable";
+import styles from '../styles/global.module.css';
 
 export default function TopUsers() {
   const [data, setData] = useState([]);
+  /* Get the boolean array indicating top user state from localstorage. 
+  Corresponding to 'true', select user from data. All user data is also stored in storage for ease of use */ 
   useEffect(() => {
     const allUsers = JSON.parse(localStorage.getItem("users"));
     console.log(allUsers);
@@ -16,8 +19,9 @@ export default function TopUsers() {
       console.log(data)
     }
   }, []);
+
   return (
-    <div style={{ marginTop: "80px" }}>
+    <div className={styles.componentWrapper}>
       <h2 style={{ textAlign: "center" }}>Top Users List</h2>
       {data.length > 0 ? (
         <UserTable data={data} topUser/>

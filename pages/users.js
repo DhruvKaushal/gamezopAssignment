@@ -1,8 +1,9 @@
 import UserTable from './components/userTable';
+import styles from '../styles/global.module.css';
 
 function Users({ data }) {
   return (
-    <div style={{ marginTop: "80px" }}>
+    <div className={styles.componentWrapper}>
       <h2 style={{ textAlign: "center" }}>Users List</h2>
       <UserTable data={data}/>
     </div>
