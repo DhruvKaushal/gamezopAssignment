@@ -17,7 +17,7 @@ export default function TopUsers() {
     }
   }, []);
   return (
-    <div style={{ marginTop: "60px" }}>
+    <div style={{ marginTop: "80px" }}>
       <h2 style={{ textAlign: "center" }}>Top Users List</h2>
       {data.length > 0 ? (
         <UserTable data={data} topUser/>

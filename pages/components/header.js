@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,22 +14,16 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
-
-const drawerWidth = 240;
-const navItems = [
-  { value: "users", label: "Users" },
-  { value: "news", label: "News" },
-  { value: "topUsers", label: "Top Users" },
-];
+import { navItems, drawerItems, drawerWidth } from "./header.constants";
 
 function Header(props) {
   const { window } = props;
-  const router  = useRouter();
-  
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const router = useRouter();
+
+  const [mobileOpen, setMobileOpen] = useState(false);
   const showComponent = (comp) => {
-    router.push(`/${comp}`)
-  }
+    router.push(`/${comp}`);
+  };
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -37,11 +31,11 @@ function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        Assignment
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {drawerItems.map((item) => (
           <ListItem key={item.value} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary={item.label} />
@@ -57,20 +51,20 @@ function Header(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav">
+      <AppBar component="nav" style={{ background: "#303030" }}>
         <Toolbar>
           <IconButton
-            color="inherit"
+            style={{color:"#fff"}}
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
           >
             <MenuIcon />
           </IconButton>
           <Typography
             variant="h6"
             component="div"
+            style={{color:"#fff"}}
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
             Assignment
@@ -79,7 +73,7 @@ function Header(props) {
             {navItems.map((item) => (
               <Button
                 key={item}
-                sx={{ color: "#fff" }}
+                style={{color:"#fff"}}
                 onClick={() => showComponent(item.value)}
               >
                 {item.label}
@@ -95,10 +89,9 @@ function Header(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -113,10 +106,6 @@ function Header(props) {
 }
 
 Header.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

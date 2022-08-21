@@ -2,8 +2,7 @@ import DataCard from "./components/dataCard";
 import styles from "../styles/news.module.css";
 function News({ data }) {
   return (
-    <div style={{ marginTop: "60px" }}>
-      <br />
+    <div style={{ marginTop: "80px" }}>
       <h2 style={{ textAlign: "center" }}>News feed</h2>
       <div className={styles.newsContainer}>
         {data.map((item) => (

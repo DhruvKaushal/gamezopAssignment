@@ -2,7 +2,7 @@ import UserTable from './components/userTable';
 
 function Users({ data }) {
   return (
-    <div style={{ marginTop: "60px" }}>
+    <div style={{ marginTop: "80px" }}>
       <h2 style={{ textAlign: "center" }}>Users List</h2>
       <UserTable data={data}/>
     </div>
