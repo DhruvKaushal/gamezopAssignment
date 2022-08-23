@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import SearchBar from "material-ui-search-bar";
 import Switch from "@mui/material/Switch";
 import { SpecificUserInfoDialog } from "./userInfoDialog";
-import styles from '../../styles/global.module.css';
+import styles from "../../styles/global.module.css";
 
 const useStyles = makeStyles({
   table: {
@@ -27,7 +27,7 @@ export default function UserTable({ data, topUser }) {
   const [open, setOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({});
   const [topUsers, setTopUsers] = useState(Array(data.length).fill(false));
-  const [blockedTimer, setBlockedTimer] = useState([]);
+  const [blockedTimer, setBlockedTimer] = useState(Array(data.length).fill(0));
   const [blockedUsers, setBlockedUsers] = useState(
     Array(data.length).fill(false)
   );
@@ -36,6 +36,10 @@ export default function UserTable({ data, topUser }) {
   const handleClickOpen = (user) => {
     setSelectedUser(user);
     setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
   };
 
   /*Here we check the localstorage to see if any prior state exists. 
@@ -55,10 +59,6 @@ export default function UserTable({ data, topUser }) {
     console.log(topUsers);
   }, []);
 
-  const handleClose = (value) => {
-    setOpen(false);
-  };
-
   //Utility function for search bar
   const requestSearch = (searchedVal) => {
     const filteredRows = data.filter((row) => {
@@ -74,6 +74,7 @@ export default function UserTable({ data, topUser }) {
     setSearched("");
     requestSearch(searched);
   };
+
   //Setting top users
   const setTopUser = (event, index) => {
     event.stopPropagation();
@@ -83,13 +84,32 @@ export default function UserTable({ data, topUser }) {
     localStorage.setItem("topUsers", JSON.stringify(topUsers));
     router.push("/users");
   };
-  //Blocking users
+
+  //Blocking users. Attempt at blocking/unblocking users after 5 minutes. Not functioning properly yet
   const onToggleClick = (event, index) => {
     event.stopPropagation();
     let tempBlockedUsers = blockedUsers;
+    if (tempBlockedUsers[index] == false) {
+      let tempBlockedTimer = blockedTimer
+      if (blockedTimer[index] === 0) {
+        tempBlockedTimer[index] = setTimeout(() => {
+          clearTimeout(tempBlockedTimer[index]);
+        }, 30 * 1000);
+        setBlockedTimer(tempBlockedTimer)
+      }
+      else{
+        clearTimeout(tempBlockedTimer[index]);
+        tempBlockedTimer[index] = 0;
+        setBlockedTimer(tempBlockedTimer);
+      }
+    }
+    else{
+      clearTimeout(blockedTimer[index]);
+    }
+    console.log(blockedTimer)
     tempBlockedUsers[index] = !tempBlockedUsers[index];
     setBlockedUsers(tempBlockedUsers);
-    localStorage.setItem("blockedUsers", JSON.stringify(topUsers));
+    localStorage.setItem("blockedUsers", JSON.stringify(blockedUsers));
     router.push("/users");
   };
 
@@ -131,12 +151,17 @@ export default function UserTable({ data, topUser }) {
             </TableHead>
             <TableBody>
               {rows.map((row, index) => (
-                <TableRow className={blockedUsers[index] ? styles.greyedRow : styles.normalRow} key={row.id} onClick={() => handleClickOpen(row)}>
+                <TableRow
+                  className={
+                    blockedUsers[index] ? styles.greyedRow : styles.normalRow
+                  }
+                  key={row.id}
+                  onClick={() => handleClickOpen(row)}
+                >
                   <TableCell>{row.id}</TableCell>
                   <TableCell>{row.name}</TableCell>
                   <TableCell>{row.username}</TableCell>
                   <TableCell>{row.email}</TableCell>
-                  {console.log(topUsers[index])}
                   {!topUser && (
                     <TableCell>
                       <input
