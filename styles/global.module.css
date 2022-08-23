@@ -8,3 +8,9 @@
 .normalRow{
     
 }
+
+.errorComp{
+    margin-top: 20%;
+    left: 40%;
+    transform: translate(42.5%, 40%);
+}
