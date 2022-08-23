@@ -1,5 +1,5 @@
 import styles from "../../styles/dataCard.module.css";
-function DataCard(props) {
+function DataCard(props: any) {
   const { body, id, title, userId } = props.item;
   return (
     <div className={styles.dataCardOuters}>

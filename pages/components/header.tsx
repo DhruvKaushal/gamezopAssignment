@@ -16,7 +16,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
 import { navItems, drawerItems, drawerWidth } from "../constants/header.constants";
 
-function Header(props) {
+function Header(props: any) {
   const { window } = props;
   const router = useRouter();
 
