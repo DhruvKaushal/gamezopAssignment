@@ -14,7 +14,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/router";
-import { navItems, drawerItems, drawerWidth } from "./header.constants";
+import { navItems, drawerItems, drawerWidth } from "../constants/header.constants";
 
 function Header(props) {
   const { window } = props;

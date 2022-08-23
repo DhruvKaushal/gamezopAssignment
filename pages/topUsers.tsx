@@ -8,15 +8,12 @@ export default function TopUsers() {
   Corresponding to 'true', select user from data. All user data is also stored in storage for ease of use */ 
   useEffect(() => {
     const allUsers = JSON.parse(localStorage.getItem("users"));
-    console.log(allUsers);
     const topUsersIndex = JSON.parse(localStorage.getItem("topUsers"));
     if (topUsersIndex && allUsers) {
-        console.log(topUsersIndex)
       const topUsers = allUsers.filter((top, index) => {
         return topUsersIndex[index];
       });
       setData(topUsers);
-      console.log(data)
     }
   }, []);
 

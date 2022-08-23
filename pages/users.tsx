@@ -1,11 +1,12 @@
-import UserTable from './components/userTable';
-import styles from '../styles/global.module.css';
+import UserTable from "./components/userTable";
+import styles from "../styles/global.module.css";
+import { userProps } from "./constants/user.constants";
 
-function Users({ data }) {
+function Users({ data }: userProps) {
   return (
     <div className={styles.componentWrapper}>
       <h2 style={{ textAlign: "center" }}>Users List</h2>
-      <UserTable data={data}/>
+      <UserTable data={data} />
     </div>
   );
 }

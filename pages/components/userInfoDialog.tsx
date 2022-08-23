@@ -5,7 +5,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 
-export function SpecificUserInfoDialog(props) {
+export function SpecificUserInfoDialog(props: any) {
   const { onClose, open, user } = props;
   const handleClose = () => {
     onClose();

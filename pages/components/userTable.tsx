@@ -19,7 +19,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserTable({ data, topUser }) {
+type tableProps = {
+  data: Array<object>;
+  topUser: boolean;
+};
+
+const UserTable = ({ data, topUser }: tableProps) => {
   const router = useRouter();
   const [rows, setRows] = useState(data);
   const [searched, setSearched] = useState("");
@@ -56,11 +61,10 @@ export default function UserTable({ data, topUser }) {
       ? setBlockedUsers(blockedUsersFromLocal)
       : setBlockedUsers(Array(data.length).fill(false));
     localStorage.setItem("users", JSON.stringify(data));
-    console.log(topUsers);
   }, []);
 
   //Utility function for search bar
-  const requestSearch = (searchedVal) => {
+  const requestSearch = (searchedVal: string) => {
     const filteredRows = data.filter((row) => {
       return (
         row.name.toLowerCase().includes(searchedVal.toLowerCase()) ||
@@ -76,7 +80,7 @@ export default function UserTable({ data, topUser }) {
   };
 
   //Setting top users
-  const setTopUser = (event, index) => {
+  const setTopUser = (event: any, index: number) => {
     event.stopPropagation();
     let tempTopUsers = topUsers;
     tempTopUsers[index] = !tempTopUsers[index];
@@ -86,27 +90,24 @@ export default function UserTable({ data, topUser }) {
   };
 
   //Blocking users. Attempt at blocking/unblocking users after 5 minutes. Not functioning properly yet
-  const onToggleClick = (event, index) => {
+  const onToggleClick = (event: any, index: number) => {
     event.stopPropagation();
     let tempBlockedUsers = blockedUsers;
     if (tempBlockedUsers[index] == false) {
-      let tempBlockedTimer = blockedTimer
+      let tempBlockedTimer = blockedTimer;
       if (blockedTimer[index] === 0) {
         tempBlockedTimer[index] = setTimeout(() => {
           clearTimeout(tempBlockedTimer[index]);
         }, 30 * 1000);
-        setBlockedTimer(tempBlockedTimer)
-      }
-      else{
+        setBlockedTimer(tempBlockedTimer);
+      } else {
         clearTimeout(tempBlockedTimer[index]);
         tempBlockedTimer[index] = 0;
         setBlockedTimer(tempBlockedTimer);
       }
-    }
-    else{
+    } else {
       clearTimeout(blockedTimer[index]);
     }
-    console.log(blockedTimer)
     tempBlockedUsers[index] = !tempBlockedUsers[index];
     setBlockedUsers(tempBlockedUsers);
     localStorage.setItem("blockedUsers", JSON.stringify(blockedUsers));
@@ -197,4 +198,6 @@ export default function UserTable({ data, topUser }) {
       )}
     </>
   );
-}
+};
+
+export default UserTable;
