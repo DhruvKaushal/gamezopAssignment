@@ -1,8 +1,10 @@
 import DataCard from "./components/dataCard";
 import styles from "../styles/news.module.css";
-function News({ data }) {
+import { userProps } from "./constants/user.constants";
+
+function News({ data }: userProps) {
   return (
-    <div style={{ marginTop: "80px" }}>
+    <div className={styles.componentWrapper}>
       <h2 style={{ textAlign: "center" }}>News feed</h2>
       <div className={styles.newsContainer}>
         {data.map((item) => (
